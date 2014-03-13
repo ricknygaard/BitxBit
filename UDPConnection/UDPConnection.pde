@@ -5,7 +5,7 @@
 ///* constants */
 //int ip1 = 230, ip2 = 230, ip3 = 230, ip4 = 230;
 //String IP = "";
-//int PORT = 8888;
+int PORT = 8888;
 //boolean LOG = false;
 //boolean BROADCAST = true;
 //
@@ -53,7 +53,7 @@
  
  
  void setup() {
- udp = new UDP( this, 8888 );  // create a new datagram connection on port 6000
+ udp = new UDP( this, PORT );  // create a new datagram connection on port 6000
  udp.log( true );     // <-- printout the connection activity
  udp.listen( true );           // and wait for incoming message  
  }
@@ -64,10 +64,10 @@
  }
  
  void keyPressed() {
- String ip       = "255.255.255.0";  // the remote IP address
- int port        = 8888;    // the destination port
+ String ip       = "236.255.255.250";   // the remote IP address
+ int port        = PORT;              // the destination port
  
- udp.send("Hello World", ip, port );   // the message to send
+ udp.send("Hello World", ip, PORT );   // the message to send
  
  }
  

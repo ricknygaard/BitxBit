@@ -3,7 +3,6 @@
 #include <SPI.h>
 #include <string.h>
 #include "utility/debug.h"
-#include "utility/socket.h"
 
 // These are the interrupt and control pins
 #define ADAFRUIT_CC3000_IRQ   3  // MUST be an interrupt pin!
@@ -16,15 +15,16 @@
 // you can change this clock speed but DI
 Adafruit_CC3000 cc3000 = Adafruit_CC3000(ADAFRUIT_CC3000_CS, ADAFRUIT_CC3000_IRQ, ADAFRUIT_CC3000_VBAT, SPI_CLOCK_DIVIDER); 
 
-#define WLAN_SSID       "HOME-5DF2"        // cannot be longer than 32 characters!
-#define WLAN_PASS       "C0DB38BC23103E73"
+#define WLAN_SSID       "belkin.d5c"        // cannot be longer than 32 characters!
+#define WLAN_PASS       "baeba66a"
+// #define WLAN_SSID       "HOME-5DF2"        // cannot be longer than 32 characters!
+// #define WLAN_PASS   	"C0DB38BC23103E73"
+
 
 // Security can be WLAN_SEC_UNSEC, WLAN_SEC_WEP, WLAN_SEC_WPA or WLAN_SEC_WPA2
 #define WLAN_SECURITY   WLAN_SEC_WPA2
-#define LOCAL_PORT       8888
+#define LOCAL_PORT		8888
 #define PACKET_SIZE		650
-
-Adafruit_CC3000_Client lightBox;
 
 boolean setupCC3000() 
 {
@@ -65,6 +65,7 @@ boolean setupCC3000()
 		Serial.println("Failed");
 		return false;
 	}
+	Serial.println("Connected");
    
   
 	/* Wait for DHCP to complete */
@@ -88,39 +89,72 @@ void setup()
 	// Setup Serial
 	Serial.begin(115200);
 	while(!setupCC3000()){ cc3000.reboot(); }
-
-	uint32_t ip = cc3000.IP2U32(224,192,32,255);
-	uint16_t port = 22601;
-
-	unsigned long timeout = millis() + 15000;
-
-	do 
-	{
-		lightBox = cc3000.connectUDP(ip, port);
-		if (millis() >= timeout) 
-		{
-			Serial.println("failed to get a UDP socket from the CC3000");
-			cc3000.reboot();
-		}
-	}
-	while (!lightBox.connected());
+	
 	Serial.println("end of setup");
 }
 
 void loop()
 {
-	char packetBuffer[PACKET_SIZE] = "this is a message";
+	while(read_request( cc3000.IP2U32(236,255,255,250), LOCAL_PORT ));
+	while(send_request( cc3000.IP2U32(236,255,255,250), LOCAL_PORT , "This statement is false"));
+}
 
-	Serial.println("beginning of loop");
-	// usual cc3000 initialization, etc., here...
-	// n == 650
-	int cc = lightBox.write(packetBuffer, PACKET_SIZE);
-	// if (cc < 0) { 
-	// 	Serial.print("error writing packet: "); Serial.println(PACKET_SIZE);
-	// } else if (cc != PACKET_SIZE) {
-	// 	Serial.print("wrote "); Serial.print(cc); Serial.print(" octets, but expected to write "); Serial.println(n);
-	// }
+bool read_request(uint32_t IP,uint16_t port) 
+{
+	Adafruit_CC3000_Client server = cc3000.connectUDP(IP, port);
+	Serial.println(IP);
 
+	if(server.connected()) 
+	{
+		Serial.println("The reading client is connected");
+		if(server.available())
+		{
+			while(server.available() > 0)
+			{
+				uint8_t ch = server.read();
+				Serial.print(ch);
+			}
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	} 
+	else 
+	{
+		Serial.println("The reading client could not connect");
+		return false;
+	}
+}
+
+bool send_request (uint32_t IP, uint16_t port, String request)
+{
+	// Connect    
+    Serial.println("Starting connection to server...");
+    Adafruit_CC3000_Client client = cc3000.connectUDP(IP, port);
+    
+    // Send request
+    if (client.connected()) {
+      client.println(request);      
+      client.println(F(""));
+      Serial.println("Connected & Data sent");
+    } 
+    else {
+      Serial.println(F("Connection failed"));    
+    }
+
+    while (client.connected()) {
+    	while (client.available()) {
+    		Serial.println("looping");
+	    	// Read answer
+	    	char c = client.read();
+    	}
+    }
+    Serial.println("Closing connection");
+    Serial.println("");
+    client.close();
 }
 
 /*	CC3000 helper functions	*/
