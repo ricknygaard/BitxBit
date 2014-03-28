@@ -50,8 +50,8 @@ UdpPacketT *pPacket;
 #define ADAFRUIT_CC3000_CS    10
 // Use hardware SPI for the remaining pins
 // On an UNO, SCK = 13, MISO = 12, and MOSI = 11
-Adafruit_CC3000 cc3000 = Adafruit_CC3000(ADAFRUIT_CC3000_CS, ADAFRUIT_CC3000_IRQ, ADAFRUIT_CC3000_VBAT,SPI_CLOCK_DIVIDER); // you can change this clock speed but DI
 
+Adafruit_CC3000 cc3000 = Adafruit_CC3000(ADAFRUIT_CC3000_CS, ADAFRUIT_CC3000_IRQ, ADAFRUIT_CC3000_VBAT, SPI_CLOCK_DIVIDER); // you can change this clock speed but DI
 #define WLAN_SSID       "belkin.d5c"        // cannot be longer than 32 characters!
 #define WLAN_PASS       "baeba66a"
 // Security can be WLAN_SEC_UNSEC, WLAN_SEC_WEP, WLAN_SEC_WPA or WLAN_SEC_WPA2
@@ -62,7 +62,7 @@ Adafruit_CC3000 cc3000 = Adafruit_CC3000(ADAFRUIT_CC3000_CS, ADAFRUIT_CC3000_IRQ
 #define BUFSIZE 150
 
 // Store other needed variables here…
-int port = 8888;
+int port;
 int skt; 
 long bind_var;
 short sin_family;
@@ -70,11 +70,23 @@ unsigned short sin_port;
 unsigned long s_addr;
 char sin_zero[8];
 uint32_t ip_holder; 
+socklen_t sockLen;
+unsigned char buf[BUFSIZE];
+socklen_t* addrlen;
+int sizeReturned;
 
-sockaddr_in SOCK_ADDER;
-sockaddr_in SOCK_ADDER_test;
 
-socklen_t SOCK_LENGTH;
+// Keith was testing something here, not sure what, commenting out for now
+//sockaddr_in SOCKET_ADDRESS_test;
+
+//sockaddr_in SOCKET_ADDRESS, from;
+sockaddr_in SOCKET_ADDRESS;
+sockaddr_in remaddr;
+
+// Testing constants
+boolean wifiConnected = false;
+boolean wifiRecieving = false;
+boolean wifiSerial = false;
 
 ///////////////////////////////////////////////////////////////////////////////
 // PRIVATE TEMP HACK
@@ -196,7 +208,6 @@ static void OpenClip(int clipId, u_int32 tBegin)
 static bool CloseClip()
 {
   bool retval = (playingClipID != CLIPID_NONE);
-
   if (retval)
   {
     CloseDataFile();
@@ -233,51 +244,72 @@ void ArduinoInit()
   fileName[6] = '\0';
 
   //CC3000 initialization
-  sockaddr_in SOCK_ADDER;
-  memset(sin_zero,0,sizeof(sin_zero));
+  // Declaration and organization of the socket's address information, to be used in the bind command later  
 
-  in_addr sinaddr;
-  sinaddr.s_addr;
+ 
 
-  SOCK_ADDER.sin_family = AF_INET;
-  SOCK_ADDER.sin_port = htons(port);
+  // declared this another way, we may not need these two anymore 
+  //in_addr sinaddr;
+  //sinaddr.s_addr;
 
   ip_holder = 0;
 
-  SOCK_ADDER.sin_addr.s_addr = htonl(ip_holder);
-  SOCK_ADDER.sin_zero[8] = 0;
+  SOCKET_ADDRESS.sin_addr.s_addr = htonl(ip_holder);
+  SOCKET_ADDRESS.sin_zero[8] = 0;
 
-    
-    
-  // SOCK_ADDER *addr;
+  // SOCKET_ADDRESS *addr;
     
   Serial.begin(9600);
+  Serial.println('2');
 
-  bool ip_connected = false;
-  while(!ip_connected) {
-    cc3000.begin();
-    cc3000.deleteProfiles();
-    cc3000.connectToAP(WLAN_SSID, WLAN_PASS, WLAN_SECURITY);
+  // Initialization of the CC3000 wifi chip, connection to the network, etc.
+  cc3000.begin();
+  cc3000.deleteProfiles();
 
-    while (!cc3000.checkDHCP())
-    {
-      delay(100);
-    } 
-    while(!(skt = socket( AF_INET, SOCK_DGRAM, IPPROTO_UDP)) > 0 );
 
-    uint32_t *ipAddress, *netmask, *gateway, *dhcpserv, *dnsserv;
-    if(cc3000.getIPAddress(ipAddress, netmask, gateway, dhcpserv, dnsserv)) {
-      Serial.println(*ipAddress);
-      ip_connected = true;
-    }
-    else
-    {
-      Serial.println("couln't find an IP address");
-      ip_connected = false;
-    }
-   }
+  if (!cc3000.connectToAP(WLAN_SSID, WLAN_PASS, WLAN_SECURITY)) {
+    // Serial.println(F("Failed!"));
+    while(1);
+  }
+
+  while (!cc3000.checkDHCP())
+  {
+    delay(100); // ToDo: Insert a DHCP timeout!
+  } 
+  Serial.println('1');
+
+
+
+  // Create the socket, setting the parameters for UDP listening
+  while(!(skt = socket( AF_INET, SOCK_DGRAM, IPPROTO_UDP)) > 0 );
+  memset(&SOCKET_ADDRESS, 0, sizeof(sockaddr_in));
+  port = 8888;
+  SOCKET_ADDRESS.sin_family = AF_INET;
+  SOCKET_ADDRESS.sin_addr.s_addr = 0;
+  SOCKET_ADDRESS.sin_port = htons(port);
+
+   // trying it backwards because we were receiving a backwards IP on the serial output
+   // in_addr sin_addr =  { cc3000.IP2U32((uint8_t)192, (uint8_t)168, (uint8_t)3, (uint8_t)0) };
+
+  // declared the socket address another way so I don't think we need these next two anymore
+  //Serial.println(SOCKET_ADDRESS.sin_addr.s_addr);
+  //sockaddr_in SOCKET_ADDRESS = { AF_INET,htons(8888), 0 , 0 };
     
-  while( (bind_var = bind( skt, (sockaddr *)&SOCK_ADDER , sizeof(SOCK_ADDER))) == -1 ) { Serial.println("here"); };
+   // while( (bind_var = bind( skt, (sockaddr *)&SOCKET_ADDRESS , sizeof(SOCKET_ADDRESS))) == -1 ) { Serial.println("here"); };
+  bind_var = bind( skt, (sockaddr*)&SOCKET_ADDRESS, sizeof(sockaddr_in));
+  Serial.println(bind_var);
+
+  Serial.print('3');
+
+  // a check to verify that the socket is created successfully
+  // Serial.println(skt);
+  // Serial.println("while loop 1 passed");  
+
+  socklen_t addrlen = sizeof(remaddr);
+  sockLen = sizeof(sockaddr_in);
+  delay(200);
+
+  Serial.println('0');
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -288,7 +320,9 @@ void ArduinoIdleFunction()
   u_int32 delta;
   u_int32 tNow;
 
-  int recvlen = recvfrom(skt, udpPayload, UDP_PAYLOAD_SIZE, 0, (sockaddr *)&SOCK_ADDER_test, &SOCK_LENGTH);
+
+  int recvlen = recvfrom( skt, udpPayload, UDP_PAYLOAD_SIZE, 0, (sockaddr*)&remaddr, addrlen);
+  // int recvlen = recvfrom(skt, udpPayload, UDP_PAYLOAD_SIZE, 0, (sockaddr *)&SOCK_ADDER_test, &SOCK_LENGTH);
   if (recvlen == UDP_PAYLOAD_SIZE)
   {
     // Newly arrived UDP packet
