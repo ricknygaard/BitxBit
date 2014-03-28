@@ -322,6 +322,7 @@ void ArduinoIdleFunction()
 
 
   int recvlen = recvfrom( skt, udpPayload, UDP_PAYLOAD_SIZE, 0, (sockaddr*)&remaddr, addrlen);
+  Serial.println(recvlen);
   // int recvlen = recvfrom(skt, udpPayload, UDP_PAYLOAD_SIZE, 0, (sockaddr *)&SOCK_ADDER_test, &SOCK_LENGTH);
   if (recvlen == UDP_PAYLOAD_SIZE)
   {

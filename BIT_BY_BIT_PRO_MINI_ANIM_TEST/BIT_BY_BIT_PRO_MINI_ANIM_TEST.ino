@@ -27,14 +27,11 @@
  */
 
 #include <SD.h>
-#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\ArduinoIdle.h"
+#include "timing_library\ArduinoIdle.h"
 #include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\Averager.h"
 #include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\BKProtocol.h"
 #include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\Common.h"
 #include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\GetTime.h"
-#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\GetTime.cpp"
-#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\Averager.cpp"
-#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\ArduinoIdle.cpp"
 
 
 byte start_byte;
