@@ -121,9 +121,9 @@ SOCKET_ADDRESS.sin_zero[8] = 0;
   
  // while( (bind_var = bind( skt, (sockaddr *)&SOCKET_ADDRESS , sizeof(SOCKET_ADDRESS))) == -1 ) { Serial.println("here"); };
 bind_var = bind( skt, (sockaddr*)&SOCKET_ADDRESS, sizeof(sockaddr_in));
-   Serial.println(bind_var);
+   //Serial.println(bind_var);
 
-  //Serial.print('3');
+  Serial.print('3');
 
 // a check to verify that the socket is created successfully
  // Serial.println(skt);
@@ -136,7 +136,7 @@ bind_var = bind( skt, (sockaddr*)&SOCKET_ADDRESS, sizeof(sockaddr_in));
   
   
   //Serial.println("while loop 2 passed");
-  //Serial.println('0');
+  Serial.println('0');
   
   
 }
@@ -145,10 +145,10 @@ void loop() {
     
   // RECEIVE DATA USING RECVFROM
   
-   Serial.println(F("Inside the loop"));
+   //Serial.println(F("Inside the loop"));
   sizeReturned = recvfrom( skt, buf , BUFSIZE, 0, (sockaddr*)&remaddr, addrlen);
   // Serial.println(bind_var);
-   Serial.println(sizeReturned);
+   //Serial.println(sizeReturned);
   
   // Variable to be encased in struct
   String command = parseCommand(buf, sizeReturned);
@@ -159,7 +159,7 @@ void loop() {
   if ( commandSize > 0 )
   {
     int pin;
-    if(buf[0] == 1)
+    if(buf[0] == '1')
     {
       pin = 1;
     } 
@@ -171,6 +171,15 @@ void loop() {
     {
       pin = 3;
     } 
+    else if(buf[0] == '4')
+    {
+      pin = 4;
+    }
+    else if(buf[0] == '5')
+    {
+      pin = 5;
+    }  
+    
       else
     {
       pin = 0;
