@@ -1,3 +1,9 @@
+#include <Adafruit_CC3000.h>
+#include <Adafruit_CC3000_Server.h>
+#include "utility/socket.h"
+#include <ccspi.h>
+#include <SPI.h>
+
 /*
   SD card file dump
  
@@ -21,6 +27,15 @@
  */
 
 #include <SD.h>
+#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\ArduinoIdle.h"
+#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\Averager.h"
+#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\BKProtocol.h"
+#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\Common.h"
+#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\GetTime.h"
+#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\GetTime.cpp"
+#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\Averager.cpp"
+#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\ArduinoIdle.cpp"
+
 
 byte start_byte;
 byte end_byte;
@@ -34,6 +49,7 @@ const int chipSelect = 4;
 
 void setup()
 {
+  ArduinoInit();
  // Open serial communications and wait for port to open:
   Serial.begin(9600);
    /*while (!Serial) {
@@ -62,7 +78,8 @@ void setup()
 
 void loop()
 {
-  end_byte = B00000000;
+  ArduinoIdleFunction();
+  /*end_byte = B00000000;
   
   start_byte = Serial.read();
   if(start_byte == B01010101)
@@ -102,6 +119,6 @@ void loop()
       Serial.println( (byte) 1);
       delay(1);
     }
-  }
+  }*/
 }
 
