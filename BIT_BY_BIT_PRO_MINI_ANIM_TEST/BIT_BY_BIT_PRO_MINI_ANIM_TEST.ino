@@ -1,3 +1,11 @@
+//#include <ArduinoIdle.h>
+//#include <Averager.h>
+//#include <BKProtocol.h>
+//#include <Common.h>
+//#include <GetTime.h>
+//#include <LaptopIdle.h>
+//#include <MovementInfo.h>
+
 #include <Adafruit_CC3000.h>
 #include <Adafruit_CC3000_Server.h>
 #include "utility/socket.h"
@@ -27,16 +35,15 @@
  */
 
 #include <SD.h>
-#include "timing_library\ArduinoIdle.h"
-#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\Averager.h"
-#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\BKProtocol.h"
-#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\Common.h"
-#include "C:\Users\Nlaptop\Desktop\bkLights\libraries\timing_library\GetTime.h"
+
 
 
 byte start_byte;
 byte end_byte;
 int i;
+int j;
+int num_of_frames[4];
+
 
 // On the Ethernet Shield, CS is pin 4. Note that even if it's not
 // used as the CS pin, the hardware CS pin (10 on most Arduino boards,
@@ -46,9 +53,9 @@ const int chipSelect = 4;
 
 void setup()
 {
-  ArduinoInit();
+ // ArduinoInit();
  // Open serial communications and wait for port to open:
-  Serial.begin(9600);
+  Serial.begin(115200);
    /*while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
@@ -75,36 +82,73 @@ void setup()
 
 void loop()
 {
-  ArduinoIdleFunction();
+  //ArduinoIdleFunction();
   end_byte = B00000000;
   
+  /*
   start_byte = Serial.read();
   if(start_byte == B01010101)
   {
-    File dataFile = SD.open("00.DAT");
+    
+    */
+    
+    File dataFile = SD.open("09.DAT");
+    
+    dataFile.seek(12);
+    for( i=0; i < 4; i++)
+    {
+    while(dataFile.available()==0);  
+    num_of_frames[i] = dataFile.read(); 
+    }
+    
+    int num_frames = (num_of_frames[3] << 24)+(num_of_frames[2] << 16)+(num_of_frames[1] << 8)+(num_of_frames[0]);
     
      // Navigate to the Animation information, skip the buffer
-    dataFile.seek(192);
+     
+    for( int j = 0; j < num_frames; j++)
+    {  
+     
+       dataFile.seek(192 * j + 192);
+     //dataFile.seek(192);
+    
+    //num_of_frames++;
   
-    if (dataFile.available()) 
-    {
+
       // send begin timing byte
-      Serial.write(2);
+      Serial.write('2');
+      
       
       for(i = 0; i < 192; ++i) 
       {  
+        while(dataFile.available()==0);
         byte frame_b = dataFile.read();
-        if (frame_b == 0 || frame_b == 1) 
+        if (frame_b == 1 || frame_b == 2) 
         {
           frame_b = 3;
         }
         Serial.write(frame_b);
-        delay(1);
+        delayMicroseconds(200);
       }
+      //Serial.flush();
+
       
-      dataFile.close();
+      while(Serial.available()==0);
+         end_byte = 0;
+        while(end_byte != '1')
+        {
+          while(Serial.available()==0);
+          end_byte = Serial.read();
+        }
+        
+      delay(50);
+    }
+ 
+ 
+ 
+     dataFile.close();
       
-      // delete the buffer
+      /*
+    
       while(Serial.read() >= 0);
       
       Serial.println( (byte) 1);
@@ -115,7 +159,11 @@ void loop()
       delay(1);
       Serial.println( (byte) 1);
       delay(1);
-    }
-  }
+      */
+    
+   
+
+    
+  
 }
 

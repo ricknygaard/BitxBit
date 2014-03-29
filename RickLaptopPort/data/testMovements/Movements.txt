@@ -1,0 +1,4 @@
+         ID  nFrames usec/Fr  beats/min  Name
+Movement 20    242     50000    78.00    SlideShow
+Movement 21    211     50000    64.50    Opener
+total frames: 453
