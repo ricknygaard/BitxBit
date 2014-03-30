@@ -2,7 +2,7 @@
 
 #include "common.h"
 
-#define UDP_PAYLOAD_SIZE        (6)
+#define UDP_PAYLOAD_SIZE        (100)
 #define UDP_PAYLOAD_TIME_OFFSET (0)
 #define UDP_PAYLOAD_CMD_OFFSET  (4)
 #define UDP_PAYLOAD_ID_OFFSET   (5)

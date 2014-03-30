@@ -194,6 +194,7 @@ static bool DisplayConnectionDetails()
 // PUBLIC
 void ArduinoInit()
 {
+  boolean success = false;
   AveragerReset(&timeDiff);
 
   playingClipID      = CLIPID_NONE;
@@ -215,47 +216,56 @@ void ArduinoInit()
   // Declaration and organization of the socket's address information, to be used in the bind command later  
 
   // Initialization of the CC3000 wifi chip, connection to the network, etc.
-  cc3000.begin();
-  cc3000.deleteProfiles();
-
-  if (! cc3000.connectToAP(WLAN_SSID, WLAN_PASS, WLAN_SECURITY))
+  while (!success)
   {
-    // Serial.println(F("Failed!"));
-    while(1);
+  	cc3000.begin();
+    cc3000.deleteProfiles();
+  
+    if (! cc3000.connectToAP(WLAN_SSID, WLAN_PASS, WLAN_SECURITY))
+    {
+      //Serial.println(F("Failed!"));
+      success = false;
+    }
+  
+    while (!cc3000.checkDHCP() && !success)
+    {
+      delay(100); // ToDo: Insert a DHCP timeout!
+    } 
+    // Serial.println('1');
+  
+    // Create the socket, setting the parameters for UDP listening
+    while ((fdSocket = socket( AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0  && !success)
+    {
+      delay(100);// Wait for socket to be created.
+    }
+  	
+  	if(!success)
+    {
+    	int port = 8888;
+	    sockaddr_in socketAddress;
+	  
+	    memset(&socketAddress, 0, sizeof(sockaddr_in));
+	    socketAddress.sin_family      = AF_INET;
+	    socketAddress.sin_addr.s_addr = 0;
+	    socketAddress.sin_port        = htons(port);
+      unsigned long timeoutTime = 0;
+	  
+	    long bind_var = bind(fdSocket, (sockaddr*) &socketAddress, sizeof(sockaddr_in));
+      // setsockopt(fdSocket, SOL_SOCKET, SOCKOPT_RECV_TIMEOUT, &timeoutTime, sizeof(timeoutTime));
+	    success = true;
+      Serial.print("connected");
+	}
+  
+    // Serial.println(bind_var);
+  
+    // Serial.print('3');
+  
+    // a check to verify that the socket is created successfully
+    // Serial.println(fdSocket);
+    // Serial.println("while loop 1 passed");  
+  
+    delay(200);
   }
-
-  while (!cc3000.checkDHCP())
-  {
-    delay(100); // ToDo: Insert a DHCP timeout!
-  } 
-  // Serial.println('1');
-
-  // Create the socket, setting the parameters for UDP listening
-  while ((fdSocket = socket( AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0 )
-  {
-    // Wait for socket to be created.
-  }
-
-  int port = 8888;
-  sockaddr_in socketAddress;
-
-  memset(&socketAddress, 0, sizeof(sockaddr_in));
-  socketAddress.sin_family      = AF_INET;
-  socketAddress.sin_addr.s_addr = 0;
-  socketAddress.sin_port        = htons(port);
-
-  long bind_var =
-    bind(fdSocket, (sockaddr*) &socketAddress, sizeof(sockaddr_in));
-
-  // Serial.println(bind_var);
-
-  // Serial.print('3');
-
-  // a check to verify that the socket is created successfully
-  // Serial.println(fdSocket);
-  // Serial.println("while loop 1 passed");  
-
-  delay(200);
 
   // Serial.println('0');
 }
@@ -268,7 +278,7 @@ void ArduinoIdleFunction()
   u_int32     delta;
   u_int32     tNow;
   sockaddr_in remaddr;
-  socklen_t   sockLen = sizeof(sockaddr_in);
+  socklen_t  sockLen = sizeof(sockaddr_in);
 
   int recvlen = recvfrom(
     fdSocket,
@@ -278,6 +288,8 @@ void ArduinoIdleFunction()
     (sockaddr*)&remaddr,
     &sockLen
     );
+  Serial.println(recvlen);
+  return;
 
   // Serial.println(recvlen);
 
