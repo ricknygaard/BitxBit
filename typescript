@@ -1,297 +1,0 @@
-Script started on Thu 13 Mar 2014 05:46:58 AM MDT
-]0;keith@keith-ubuntu: ~/Documents/coding/BKLightskeith@keith-ubuntu:~/Documents/coding/BKLights$ ruby
-math=2^ **16
-put math
-^C-: Interrupt
-
-]0;keith@keith-ubuntu: ~/Documents/coding/BKLightskeith@keith-ubuntu:~/Documents/coding/BKLights$ man ruby
-[?1049h[?1h=RUBY(1)                                  Ruby Programmers Reference Guide                                  RUBY(1)[m
-[m
-[1mNAME[0m[m
-     [1mruby[0m — Interpreted object-oriented scripting language[m
-[m
-[1mSYNOPSIS[0m[m
-     [1mruby[0m [[1m--copyright[0m] [[1m--version[0m] [[1m-SUacdlnpswvy[0m] [[1m-0[0m[[4moctal[24m]] [[1m-C[0m [4mdirectory[24m] [[1m-E[0m [4mexternal[24m[:[4minternal[24m]][m
-          [[1m-F[0m [4mpattern[24m] [[1m-I[0m [4mdirectory[24m] [[1m-K[0m [4mc[24m] [[1m-T[0m[[4mlevel[24m]] [[1m-W[0m[[4mlevel[24m]] [[1m-e[0m [4mcommand[24m] [[1m-i[0m[[4mextension[24m]] [[1m-r[0m [4mlibrary[24m][m
-          [[1m-x[0m[[4mdirectory[24m]] [-{[1menable[0m|[1mdisable[0m}-[4mFEATURE[24m] [[1m--dump[0m=[4mtarget[24m] [[1m--verbose[0m] [[1m--[0m] [[4mprogram_file[24m][m
-          [[4margument[24m [4m...[24m][m
-[m
-[1mDESCRIPTION[0m[m
-     Ruby is an interpreted scripting language for quick and easy object-oriented programming.  It has many fea‐[m
-     tures to process text files and to do system management tasks (as in Perl).  It is simple, straight-forward,[m
-     and extensible.[m
-[m
-     If you want a language for easy object-oriented programming, or you don't like the Perl ugliness, or you do[m
-     like the concept of LISP, but don't like too many parentheses, Ruby might be your language of choice.[m
-[m
-[1mFEATURES[0m[m
-     Ruby's features are as follows:[m
-[m
-     [1mInterpretive[0m[m
-             Ruby is an interpreted language, so you don't have to recompile programs written in Ruby to execute[m
-             them.[m
-[m
-     [1mVariables[0m [1mhave[0m [1mno[0m [1mtype[0m [1m(dynamic[0m [1mtyping)[0m[m
-             Variables in Ruby can contain data of any type.  You don't have to worry about variable typing.  Con‐[m
-             sequently, it has a weaker compile time check.[m
-[m
-     [1mNo[0m [1mdeclaration[0m [1mneeded[0m[m
-             You can use variables in your Ruby programs without any declarations.  Variable names denote their[m
-             scope - global, class, instance, or local.[m
-[m
-     [1mSimple[0m [1msyntax[0m[m
-             Ruby has a simple syntax influenced slightly from Eiffel.[m
-[m
-     [1mNo[0m [1muser-level[0m [1mmemory[0m [1mmanagement[0m[m
-[7m Manual page ruby(1) line 1 (press h for help or q to quit)[27m[K[K             Ruby has automatic memory management.  Objects no longer referenced from anywhere are automatically[m
-[7m Manual page ruby(1) line 2 (press h for help or q to quit)[27m[K[K             collected by the garbage collector built into the interpreter.[m
-[7m Manual page ruby(1) line 3 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 4 (press h for help or q to quit)[27m[K[K     [1mEverything[0m [1mis[0m [1man[0m [1mobject[0m[m
-[7m Manual page ruby(1) line 5 (press h for help or q to quit)[27m[K[K             Ruby is a purely object-oriented language, and was so since its creation.  Even such basic data as[m
-[7m Manual page ruby(1) line 6 (press h for help or q to quit)[27m[K[K             integers are seen as objects.[m
-[7m Manual page ruby(1) line 7 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 8 (press h for help or q to quit)[27m[K[K     [1mClass,[0m [1minheritance,[0m [1mand[0m [1mmethods[0m[m
-[7m Manual page ruby(1) line 9 (press h for help or q to quit)[27m[K[K             Being an object-oriented language, Ruby naturally has basic features like classes, inheritance, and[m
-[7m Manual page ruby(1) line 10 (press h for help or q to quit)[27m[K[K             methods.[m
-[7m Manual page ruby(1) line 11 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 12 (press h for help or q to quit)[27m[K[K     [1mSingleton[0m [1mmethods[0m[m
-[7m Manual page ruby(1) line 13 (press h for help or q to quit)[27m[K[K             Ruby has the ability to define methods for certain objects.  For example, you can define a press-but‐[m
-[7m Manual page ruby(1) line 14 (press h for help or q to quit)[27m[K[K             ton action for certain widget by defining a singleton method for the button.  Or, you can make up[m
-[7m Manual page ruby(1) line 15 (press h for help or q to quit)[27m[K[K             your own prototype based object system using singleton methods, if you want to.[m
-[7m Manual page ruby(1) line 16 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 17 (press h for help or q to quit)[27m[K[K     [1mMix-in[0m [1mby[0m [1mmodules[0m[m
-[7m Manual page ruby(1) line 18 (press h for help or q to quit)[27m[K[K             Ruby intentionally does not have the multiple inheritance as it is a source of confusion.  Instead,[m
-[7m Manual page ruby(1) line 19 (press h for help or q to quit)[27m[K[K             Ruby has the ability to share implementations across the inheritance tree.  This is often called a[m
-[7m Manual page ruby(1) line 20 (press h for help or q to quit)[27m[K[K             ‘Mix-in’.[m
-[7m Manual page ruby(1) line 21 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 22 (press h for help or q to quit)[27m[K[K     [1mIterators[0m[m
-[7m Manual page ruby(1) line 23 (press h for help or q to quit)[27m[K[K             Ruby has iterators for loop abstraction.[m
-[7m Manual page ruby(1) line 24 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 25 (press h for help or q to quit)[27m[K[K     [1mClosures[0m[m
-[7m Manual page ruby(1) line 26 (press h for help or q to quit)[27m[K[K             In Ruby, you can objectify the procedure.[m
-[7m Manual page ruby(1) line 27 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 28 (press h for help or q to quit)[27m[K[K     [1mText[0m [1mprocessing[0m [1mand[0m [1mregular[0m [1mexpressions[0m[m
-[7m Manual page ruby(1) line 29 (press h for help or q to quit)[27m[K[K             Ruby has a bunch of text processing features like in Perl.[m
-[7m Manual page ruby(1) line 30 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 31 (press h for help or q to quit)[27m[K[K     [1mM17N,[0m [1mcharacter[0m [1mset[0m [1mindependent[0m[m
-[7m Manual page ruby(1) line 32 (press h for help or q to quit)[27m[K[K             Ruby supports multilingualized programming. Easy to process texts written in many different natural[m
-[7m Manual page ruby(1) line 33 (press h for help or q to quit)[27m[K[K             languages and encoded in many different character encodings, without dependence on Unicode.[m
-[7m Manual page ruby(1) line 34 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 35 (press h for help or q to quit)[27m[K[K     [1mBignums[0m[m
-[7m Manual page ruby(1) line 36 (press h for help or q to quit)[27m[K[K             With built-in bignums, you can for example calculate factorial(400).[m
-[7m Manual page ruby(1) line 37 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 38 (press h for help or q to quit)[27m[K[K     [1mReflection[0m [1mand[0m [1mdomain[0m [1mspecific[0m [1mlanguages[0m[m
-[7m Manual page ruby(1) line 39 (press h for help or q to quit)[27m[K[K             Class is also an instance of the Class class. Definition of classes and methods is an expression just[m
-[7m Manual page ruby(1) line 40 (press h for help or q to quit)[27m[K[K             as 1+1 is. So your programs can even write and modify programs.  Thus you can write your application[m
-[7m Manual page ruby(1) line 41 (press h for help or q to quit)[27m[K[K             in your own programming language on top of Ruby.[m
-[7m Manual page ruby(1) line 42 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 43 (press h for help or q to quit)[27m[K[K     [1mException[0m [1mhandling[0m[m
-[7m Manual page ruby(1) line 44 (press h for help or q to quit)[27m[K[K             As in Java(tm).[m
-[7m Manual page ruby(1) line 45 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 46 (press h for help or q to quit)[27m[K[K     [1mDirect[0m [1maccess[0m [1mto[0m [1mthe[0m [1mOS[0m[m
-[7m Manual page ruby(1) line 47 (press h for help or q to quit)[27m[K[K             Ruby can use most UNIX system calls, often used in system programming.[m
-[7m Manual page ruby(1) line 48 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 49 (press h for help or q to quit)[27m[K[K     [1mDynamic[0m [1mloading[0m[m
-[7m Manual page ruby(1) line 50 (press h for help or q to quit)[27m[K[K             On most UNIX systems, you can load object files into the Ruby interpreter on-the-fly.[m
-[7m Manual page ruby(1) line 51 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 52 (press h for help or q to quit)[27m[K[K     [1mRich[0m [1mlibraries[0m[m
-[7m Manual page ruby(1) line 53 (press h for help or q to quit)[27m[K[K             Libraries called "builtin libraries" and "standard libraries" are bundled with Ruby.  And you can[m
-[7m Manual page ruby(1) line 54 (press h for help or q to quit)[27m[K[K             obtain more libraries via the package management system called `RubyGems'.[m
-[7m Manual page ruby(1) line 55 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 56 (press h for help or q to quit)[27m[K[K             Moreover there are thousands of Ruby projects in Rubyforge (http://www.rubyforge.org) and RAA[m
-[7m Manual page ruby(1) line 57 (press h for help or q to quit)[27m[K[K             (http://raa.ruby-lang.org).[m
-[7m Manual page ruby(1) line 58 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 59 (press h for help or q to quit)[27m[K[K[1mOPTIONS[0m[m
-[7m Manual page ruby(1) line 60 (press h for help or q to quit)[27m[K[K     Ruby interpreter accepts following command-line options (switches).  They are quite similar to those of[m
-[7m Manual page ruby(1) line 61 (press h for help or q to quit)[27m[K[K     perl(1).[m
-[7m Manual page ruby(1) line 62 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 63 (press h for help or q to quit)[27m[K[K     [1m--copyright[0m    Prints the copyright notice.[m
-[7m Manual page ruby(1) line 64 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 65 (press h for help or q to quit)[27m[K[K     [1m--version[0m      Prints the version of Ruby interpreter.[m
-[7m Manual page ruby(1) line 66 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 67 (press h for help or q to quit)[27m[K[K     [1m-0[0m[[4moctal[24m]      (The digit “zero”.)  Specifies the input record separator ($/) as an octal number. If no digit[m
-[7m Manual page ruby(1) line 68 (press h for help or q to quit)[27m[K[K                    is given, the null character is taken as the separator.  Other switches may follow the digits.[m
-[7m Manual page ruby(1) line 69 (press h for help or q to quit)[27m[K[K                    [1m-00[0m turns Ruby into paragraph mode.  [1m-0777[0m makes Ruby read whole file at once as a single[m
-[7m Manual page ruby(1) line 70 (press h for help or q to quit)[27m[K[K                    string since there is no legal character with that value.[m
-[7m Manual page ruby(1) line 71 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 72 (press h for help or q to quit)[27m[K[K     [1m-C[0m [4mdirectory[24m[m
-[7m Manual page ruby(1) line 73 (press h for help or q to quit)[27m[K[K     [1m-X[0m [4mdirectory[24m   Causes Ruby to switch to the directory.[m
-[7m Manual page ruby(1) line 74 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 75 (press h for help or q to quit)[27m[K[K     [1m-E[0m [4mexternal[24m[:[4minternal[24m][m
-[7m Manual page ruby(1) line 76 (press h for help or q to quit)[27m[K[K     [1m--encoding[0m [4mexternal[24m[:[4minternal[24m][m
-[7m Manual page ruby(1) line 77 (press h for help or q to quit)[27m[K[K                    Specifies the default value(s) for external encodings and internal encoding. Values should be[m
-[7m Manual page ruby(1) line 78 (press h for help or q to quit)[27m[K[K                    separated with colon (:).[m
-[7m Manual page ruby(1) line 79 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 80 (press h for help or q to quit)[27m[K[K                    You can omit the one for internal encodings, then the value (Encoding.default_internal) will[m
-[7m Manual page ruby(1) line 81 (press h for help or q to quit)[27m[K[K                    be nil.[m
-[7m Manual page ruby(1) line 82 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 83 (press h for help or q to quit)[27m[K[K     [1m-F[0m [4mpattern[24m     Specifies input field separator ($;).[m
-[7m Manual page ruby(1) line 84 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 85 (press h for help or q to quit)[27m[K[K     [1m-I[0m [4mdirectory[24m   Used to tell Ruby where to load the library scripts.  Directory path will be added to the[m
-[7m Manual page ruby(1) line 86 (press h for help or q to quit)[27m[K[K                    load-path variable ($:).[m
-[7m Manual page ruby(1) line 87 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 88 (press h for help or q to quit)[27m[K[K     [1m-K[0m [4mkcode[24m       Specifies KANJI (Japanese) encoding. The default value for script encodings (__ENCODING__) and[m
-[7m Manual page ruby(1) line 89 (press h for help or q to quit)[27m[K[K                    external encodings (Encoding.default_external) will be the specified one. [4mkcode[24m can be one of[m
-[7m Manual page ruby(1) line 90 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 91 (press h for help or q to quit)[27m[K[K                          [1me[0m       EUC-JP[m
-[7m Manual page ruby(1) line 92 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 93 (press h for help or q to quit)[27m[K[K                          [1ms[0m       Windows-31J (CP932)[m
-[7m Manual page ruby(1) line 94 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 95 (press h for help or q to quit)[27m[K[K                          [1mu[0m       UTF-8[m
-[7m Manual page ruby(1) line 96 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 97 (press h for help or q to quit)[27m[K[K                          [1mn[0m       ASCII-8BIT (BINARY)[m
-[7m Manual page ruby(1) line 98 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 99 (press h for help or q to quit)[27m[K[K     [1m-S[0m             Makes Ruby use the PATH environment variable to search for script, unless if its name begins[m
-[7m Manual page ruby(1) line 100 (press h for help or q to quit)[27m[K[K                    with a slash.  This is used to emulate #! on machines that don't support it, in the following[m
-[7m Manual page ruby(1) line 101 (press h for help or q to quit)[27m[K[K                    manner:[m
-[7m Manual page ruby(1) line 102 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 103 (press h for help or q to quit)[27m[K[K                          #! /usr/local/bin/ruby[m
-[7m Manual page ruby(1) line 104 (press h for help or q to quit)[27m[K[K                          # This line makes the next one a comment in Ruby \[m
-[7m Manual page ruby(1) line 105 (press h for help or q to quit)[27m[K[K                            exec /usr/local/bin/ruby -S $0 $*[m
-[7m Manual page ruby(1) line 106 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 107 (press h for help or q to quit)[27m[K[K     [1m-T[0m[[4mlevel=1[24m]    Turns on taint checks at the specified level (default 1).[m
-[7m Manual page ruby(1) line 108 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 109 (press h for help or q to quit)[27m[K[K     [1m-U[0m             Sets the default value for internal encodings (Encoding.default_internal) to UTF-8.[m
-[7m Manual page ruby(1) line 110 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 111 (press h for help or q to quit)[27m[K[K     [1m-W[0m[[4mlevel=2[24m]    Turns on verbose mode at the specified level, without printing version message at the begin‐[m
-[7m Manual page ruby(1) line 112 (press h for help or q to quit)[27m[K[K                    ning. The level can be;[m
-[7m Manual page ruby(1) line 113 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 114 (press h for help or q to quit)[27m[K[K                          [1m0[0m       Verbose mode is "silence". It sets the $VERBOSE to nil.[m
-[7m Manual page ruby(1) line 115 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 116 (press h for help or q to quit)[27m[K[K                          [1m1[0m       Verbose mode is "medium". It sets the $VERBOSE to false.[m
-[7m Manual page ruby(1) line 117 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 118 (press h for help or q to quit)[27m[K[K                          [1m2[0m [1m(default)[0m Verbose mode is "verbose". It sets the $VERBOSE to true.  [1m-W[0m2 is same as [1m-w[0m[m
-[7m Manual page ruby(1) line 119 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 120 (press h for help or q to quit)[27m[K[K     [1m-a[0m             Turns on auto-split mode when used with [1m-n[0m or [1m-p[0m.  In auto-split mode, Ruby executes[m
-[7m Manual page ruby(1) line 121 (press h for help or q to quit)[27m[K[K                          $F = $_.split[m
-[7m Manual page ruby(1) line 122 (press h for help or q to quit)[27m[K[K                    at beginning of each loop.[m
-[7m Manual page ruby(1) line 123 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 124 (press h for help or q to quit)[27m[K[K     [1m-c[0m             Causes Ruby to check the syntax of the script and exit without executing. If there are no syn‐[m
-[7m Manual page ruby(1) line 125 (press h for help or q to quit)[27m[K[K                    tax errors, Ruby will print “Syntax OK” to the standard output.[m
-[7m Manual page ruby(1) line 126 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 127 (press h for help or q to quit)[27m[K[K     [1m-d[0m[m
-[7m Manual page ruby(1) line 128 (press h for help or q to quit)[27m[K[K     [1m--debug[0m        Turns on debug mode.  $DEBUG will be set to true.[m
-[7m Manual page ruby(1) line 129 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 130 (press h for help or q to quit)[27m[K[K     [1m-e[0m [4mcommand[24m     Specifies script from command-line while telling Ruby not to search the rest of the arguments[m
-[7m Manual page ruby(1) line 131 (press h for help or q to quit)[27m[K[K                    for a script file name.[m
-[7m Manual page ruby(1) line 132 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 133 (press h for help or q to quit)[27m[K[K     [1m-h[0m[m
-[7m Manual page ruby(1) line 134 (press h for help or q to quit)[27m[K[K     [1m--help[0m         Prints a summary of the options.[m
-[7m Manual page ruby(1) line 135 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 136 (press h for help or q to quit)[27m[K[K     [1m-i[0m [4mextension[24m   Specifies in-place-edit mode.  The extension, if specified, is added to old file name to make[m
-[7m Manual page ruby(1) line 137 (press h for help or q to quit)[27m[K[K                    a backup copy.  For example:[m
-[7m Manual page ruby(1) line 138 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 139 (press h for help or q to quit)[27m[K[K                          % echo matz > /tmp/junk[m
-[7m Manual page ruby(1) line 140 (press h for help or q to quit)[27m[K[K                          % cat /tmp/junk[m
-[7m Manual page ruby(1) line 141 (press h for help or q to quit)[27m[K[K                          matz[m
-[7m Manual page ruby(1) line 142 (press h for help or q to quit)[27m[K[K                          % ruby -p -i.bak -e '$_.upcase!' /tmp/junk[m
-[7m Manual page ruby(1) line 143 (press h for help or q to quit)[27m[K[K                          % cat /tmp/junk[m
-[7m Manual page ruby(1) line 144 (press h for help or q to quit)[27m[K[K                          MATZ[m
-[7m Manual page ruby(1) line 145 (press h for help or q to quit)[27m[K[K                          % cat /tmp/junk.bak[m
-[7m Manual page ruby(1) line 146 (press h for help or q to quit)[27m[K[K                          matz[m
-[7m Manual page ruby(1) line 147 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 148 (press h for help or q to quit)[27m[K[K     [1m-l[0m             (The lowercase letter “ell”.)  Enables automatic line-ending processing, which means to[m
-[7m Manual page ruby(1) line 149 (press h for help or q to quit)[27m[K[K                    firstly set $\ to the value of $/, and secondly chops every line read using chop!.[m
-[7m Manual page ruby(1) line 150 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 151 (press h for help or q to quit)[27m[K[K     [1m-n[0m             Causes Ruby to assume the following loop around your script, which makes it iterate over file[m
-[7m Manual page ruby(1) line 152 (press h for help or q to quit)[27m[K[K                    name arguments somewhat like [1msed[0m [1m-n[0m or [1mawk[0m.[m
-[7m Manual page ruby(1) line 153 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 154 (press h for help or q to quit)[27m[K[K                          while gets[m
-[7m Manual page ruby(1) line 155 (press h for help or q to quit)[27m[K[K                            ...[m
-[7m Manual page ruby(1) line 156 (press h for help or q to quit)[27m[K[K                          end[m
-[7m Manual page ruby(1) line 157 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 158 (press h for help or q to quit)[27m[K[K     [1m-p[0m             Acts mostly same as -n switch, but print the value of variable $_ at the each end of the loop.[m
-[7m Manual page ruby(1) line 159 (press h for help or q to quit)[27m[K[K                    For example:[m
-[7m Manual page ruby(1) line 160 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 161 (press h for help or q to quit)[27m[K[K                          % echo matz | ruby -p -e '$_.tr! "a-z", "A-Z"'[m
-[7m Manual page ruby(1) line 162 (press h for help or q to quit)[27m[K[K                          MATZ[m
-[7m Manual page ruby(1) line 163 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 164 (press h for help or q to quit)[27m[K[K     [1m-r[0m [4mlibrary[24m     Causes Ruby to load the library using require.  It is useful when using [1m-n[0m or [1m-p[0m.[m
-[7m Manual page ruby(1) line 165 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 166 (press h for help or q to quit)[27m[K[K     [1m-s[0m             Enables some switch parsing for switches after script name but before any file name arguments[m
-[7m Manual page ruby(1) line 167 (press h for help or q to quit)[27m[K[K                    (or before a [1m--[0m).  Any switches found there are removed from ARGV and set the corresponding[m
-[7m Manual page ruby(1) line 168 (press h for help or q to quit)[27m[K[K                    variable in the script.  For example:[m
-[7m Manual page ruby(1) line 169 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 170 (press h for help or q to quit)[27m[K[K                          #! /usr/local/bin/ruby -s[m
-[7m Manual page ruby(1) line 171 (press h for help or q to quit)[27m[K[K                          # prints "true" if invoked with `-xyz' switch.[m
-[7m Manual page ruby(1) line 172 (press h for help or q to quit)[27m[K[K                          print "true\n" if $xyz[m
-[7m Manual page ruby(1) line 173 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 174 (press h for help or q to quit)[27m[K[K                    On some systems $0 does not always contain the full pathname, so you need the [1m-S[0m switch to[m
-[7m Manual page ruby(1) line 175 (press h for help or q to quit)[27m[K[K                    tell Ruby to search for the script if necessary.  To handle embedded spaces or such.  A better[m
-[7m Manual page ruby(1) line 176 (press h for help or q to quit)[27m[K[K                    construct than $* would be ${1+"$@"}, but it does not work if the script is being interpreted[m
-[7m Manual page ruby(1) line 177 (press h for help or q to quit)[27m[K[K                    by csh(1).[m
-[7m Manual page ruby(1) line 178 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 179 (press h for help or q to quit)[27m[K[K     [1m-v[0m             Enables verbose mode.  Ruby will print its version at the beginning, and set the variable[m
-[7m Manual page ruby(1) line 180 (press h for help or q to quit)[27m[K[K                    $VERBOSE to true.  Some methods print extra messages if this variable is true.  If this switch[m
-[7m Manual page ruby(1) line 181 (press h for help or q to quit)[27m[K[K                    is given, and no other switches are present, Ruby quits after printing its version.[m
-[7m Manual page ruby(1) line 182 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 183 (press h for help or q to quit)[27m[K[K     [1m-w[0m             Enables verbose mode without printing version message at the beginning.  It sets the $VERBOSE[m
-[7m Manual page ruby(1) line 184 (press h for help or q to quit)[27m[K[K                    variable to true.[m
-[7m Manual page ruby(1) line 185 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 186 (press h for help or q to quit)[27m[K[K     [1m-x[0m[[4mdirectory[24m]  Tells Ruby that the script is embedded in a message.  Leading garbage will be discarded until[m
-[7m Manual page ruby(1) line 187 (press h for help or q to quit)[27m[K[K                    the first that starts with “#!” and contains the string, “ruby”.  Any meaningful switches on[m
-[7m Manual page ruby(1) line 188 (press h for help or q to quit)[27m[K[K                    that line will applied.  The end of script must be specified with either EOF, ^D (control-D),[m
-[7m Manual page ruby(1) line 189 (press h for help or q to quit)[27m[K[K                    ^Z (control-Z), or the reserved word __END__.  If the directory name is specified, Ruby will[m
-[7m Manual page ruby(1) line 190 (press h for help or q to quit)[27m[K[K                    switch to that directory before executing script.[m
-[7m Manual page ruby(1) line 191 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 192 (press h for help or q to quit)[27m[K[K     [1m-y[0m[m
-[7m Manual page ruby(1) line 193 (press h for help or q to quit)[27m[K[K     [1m--yydebug[0m      DO NOT USE.[m
-[7m Manual page ruby(1) line 194 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 195 (press h for help or q to quit)[27m[K[K                    Turns on compiler debug mode.  Ruby will print a bunch of internal state messages during com‐[m
-[7m Manual page ruby(1) line 196 (press h for help or q to quit)[27m[K[K                    piling scripts.  You don't have to specify this switch, unless you are going to debug the Ruby[m
-[7m Manual page ruby(1) line 197 (press h for help or q to quit)[27m[K[K                    interpreter.[m
-[7m Manual page ruby(1) line 198 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 199 (press h for help or q to quit)[27m[K[K     [1m--disable-[0m[4mFEATURE[24m[m
-[7m Manual page ruby(1) line 200 (press h for help or q to quit)[27m[K[K     [1m--enable-[0m[4mFEATURE[24m[m
-[7m Manual page ruby(1) line 201 (press h for help or q to quit)[27m[K[K                    Disables (or enables) the specified [4mFEATURE[24m.[m
-[7m Manual page ruby(1) line 202 (press h for help or q to quit)[27m[K[K                    [1m--disable-gems[0m[m
-[7m Manual page ruby(1) line 203 (press h for help or q to quit)[27m[K[K                    [1m--enable-gems[0m      Disables (or enables) RubyGems libraries.  By default, Ruby will load the[m
-[7m Manual page ruby(1) line 204 (press h for help or q to quit)[27m[K[K                                       latest version of each installed gem. The Gem constant is true if RubyGems[m
-[7m Manual page ruby(1) line 205 (press h for help or q to quit)[27m[K[K                                       is enabled, false if otherwise.[m
-[7m Manual page ruby(1) line 206 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 207 (press h for help or q to quit)[27m[K[K                    [1m--disable-rubyopt[0m[m
-[7m Manual page ruby(1) line 208 (press h for help or q to quit)[27m[K[K                    [1m--enable-rubyopt[0m   Ignores (or considers) the RUBYOPT environment variable. By default, Ruby[m
-[7m Manual page ruby(1) line 209 (press h for help or q to quit)[27m[K[K                                       considers the variable.[m
-[7m Manual page ruby(1) line 210 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 211 (press h for help or q to quit)[27m[K[K                    [1m--disable-all[0m[m
-[7m Manual page ruby(1) line 212 (press h for help or q to quit)[27m[K[K                    [1m--enable-all[0m       Disables (or enables) all features.[m
-[7m Manual page ruby(1) line 213 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 214 (press h for help or q to quit)[27m[K[K     [1m--dump[0m=[4mtarget[24m  DO NOT USE.[m
-[7m Manual page ruby(1) line 215 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 216 (press h for help or q to quit)[27m[K[K                    Prints the specified target.  [4mtarget[24m can be one of;[m
-[7m Manual page ruby(1) line 217 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 218 (press h for help or q to quit)[27m[K[K                          [1minsns[0m   disassembled instructions[m
-[7m Manual page ruby(1) line 219 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 220 (press h for help or q to quit)[27m[K[K                    You don't have to specify this switch, unless you are going to debug the Ruby interpreter.[m
-[7m Manual page ruby(1) line 221 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 222 (press h for help or q to quit)[27m[K[K     [1m--verbose[0m      Enables verbose mode without printing version message at the beginning.  It sets the $VERBOSE[m
-[7m Manual page ruby(1) line 223 (press h for help or q to quit)[27m[K[K                    variable to true.  If thi[K                    [1m--enable-all[0m       Disables (or enables) all features.[m
-[7m Manual page ruby(1) line 213 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 214 (press h for help or q to quit)[27m[K[K     [1m--dump[0m=[4mtarget[24m  DO NOT USE.[m
-[7m Manual page ruby(1) line 215 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 216 (press h for help or q to quit)[27m[K[K                    Prints the specified target.  [4mtarget[24m can be one of;[m
-[7m Manual page ruby(1) line 217 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 218 (press h for help or q to quit)[27m[K[K                          [1minsns[0m   disassembled instructions[m
-[7m Manual page ruby(1) line 219 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 220 (press h for help or q to quit)[27m[K[K                    You don't have to specify this switch, unless you are going to debug the Ruby interpreter.[m
-[7m Manual page ruby(1) line 221 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 222 (press h for help or q to quit)[27m[K[K     [1m--verbose[0m      Enables verbose mode without printing version message at the beginning.  It sets the $VERBOSE[m
-[7m Manual page ruby(1) line 223 (press h for help or q to quit)[27m[K[K                    variable to true.  If this switch is given, and no other switches are present, Ruby quits[m
-[7m Manual page ruby(1) line 224 (press h for help or q to quit)[27m[K[K                    after printing its version.[m
-[7m Manual page ruby(1) line 225 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 226 (press h for help or q to quit)[27m[K[K[1mENVIRONMENT[0m[m
-[7m Manual page ruby(1) line 227 (press h for help or q to quit)[27m[K[K     RUBYLIB         A colon-separated list of directories that are added to Ruby's library load path ($:).[m
-[7m Manual page ruby(1) line 228 (press h for help or q to quit)[27m[K[K                     Directories from this environment variable are searched before the standard load path is[m
-[7m Manual page ruby(1) line 229 (press h for help or q to quit)[27m[K[K                     searched.[m
-[7m Manual page ruby(1) line 230 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 231 (press h for help or q to quit)[27m[K[K                     e.g.:[m
-[7m Manual page ruby(1) line 232 (press h for help or q to quit)[27m[K[K                           RUBYLIB="$HOME/lib/ruby:$HOME/lib/rubyext"[m
-[7m Manual page ruby(1) line 233 (press h for help or q to quit)[27m[K[K[m
-[7m Manual page ruby(1) line 234 (press h for help or q to quit)[27m[K[K     RUBYOPT         Additional Ruby options.[m
-[7m Manual page ruby(1) line 235 (press h for help or q to quit)[27m[K[K [KESCESC[K^J^J[K[7m Manual page ruby(1) line 235 (press h for help or q to quit)[27m[K[K[?1l>[?1049l]0;keith@keith-ubuntu: ~/Documents/coding/BKLightskeith@keith-ubuntu:~/Documents/coding/BKLights$ exit
-exit
-Script done, file is typescript
-]0;keith@keith-ubuntu: ~/Documents/coding/BKLightskeith@keith-ubuntu:~/Documents/coding/BKLights$ exit
-exit
-
-Script done on Thu 13 Mar 2014 05:50:32 AM MDT
