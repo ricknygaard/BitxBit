@@ -16,7 +16,7 @@ Local Repo Status: (Local)
 	git status
 
 Clone repository: (Copy repository to local computer)
-	git clone https://github.com/kenygaar/BitxBit.git <dir name>
+	git clone https://github.com/kenygaar/BitxBit.git <dir name to copy to>
 
 Add all changes: (stays local)
 	git add -A
