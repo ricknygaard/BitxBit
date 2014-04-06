@@ -1,5 +1,5 @@
-#include <stdafx.h>
-#include "GetTime.h"
+#include <Arduino.h>
+#include <GetTime.h>
 
 static u_int32 tArduinoAtReset = 0;  // units of 4 usec
 static u_int32 numTimeRollovers = 0;
