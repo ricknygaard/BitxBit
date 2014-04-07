@@ -32,7 +32,8 @@ const int NUM_LED_ROWS = 8;
 const u_int8 FRAME_START = 2;
 const u_int8 FRAME_DONE  = 1;
 
-const int SER_DELAY = 200;  // microseconds
+#define DELAY_USEC(a)  delayMicroseconds(a)
+const int SER_DELAY = 350;  // microseconds
 
 // Buffers
 //
@@ -77,8 +78,8 @@ Adafruit_CC3000 cc3000 = Adafruit_CC3000(
   SPI_CLOCK_DIVIDER
   ); // you can change this clock speed but DI
 
-#define WLAN_SSID       "YourRouter"  // cannot be longer than 32 characters!
-#define WLAN_PASS       "YourPassword"
+#define WLAN_SSID       "Skyhook"  // cannot be longer than 32 characters!
+#define WLAN_PASS       "CelestDSN:!+++++"
 #define WLAN_SECURITY   WLAN_SEC_WPA
 
 /*
@@ -271,16 +272,16 @@ static void SendFillerFrame(int nRows, long color)
 
   // Send begin timing byte
   //
-  delayMicroseconds(SER_DELAY);  Serial.write(FRAME_START);
+  DELAY_USEC(SER_DELAY);  Serial.write(FRAME_START);
 
   int row;
   for (row = 0; row < nRows; ++row)
   {
     for (int col = 0; col < NUM_LED_ROWS; ++col)
     {
-      delayMicroseconds(SER_DELAY);  Serial.write(b);
-      delayMicroseconds(SER_DELAY);  Serial.write(g);
-      delayMicroseconds(SER_DELAY);  Serial.write(r);
+      DELAY_USEC(SER_DELAY);  Serial.write(b);
+      DELAY_USEC(SER_DELAY);  Serial.write(g);
+      DELAY_USEC(SER_DELAY);  Serial.write(r);
     }
   }
 
@@ -291,13 +292,13 @@ static void SendFillerFrame(int nRows, long color)
     const int numValues = NUM_LED_ROWS * 3;
     for (int i = 0; i < numValues; ++i)
     {
-      delayMicroseconds(SER_DELAY);  Serial.write(0);
+      DELAY_USEC(SER_DELAY);  Serial.write(0);
     }
   }
 
   // Wait for acknowledgement of frame.
   //
-  delayMicroseconds(SER_DELAY * 4);
+  DELAY_USEC(SER_DELAY * 4);
   for (int readVal = -1; readVal != FRAME_DONE; readVal = Serial.read())
   {
     // read() returns -1 if no data available
@@ -405,7 +406,7 @@ void ArduinoInit()
 {
   // Open serial communications and wait for port to open
   //
-  Serial.begin(115200);
+  Serial.begin(57600);  // 115200);
 
   AveragerReset(&timeDiff);
 
@@ -681,7 +682,7 @@ void ArduinoIdleFunction()
 #ifndef USE_PRINTS
     // Send begin timing byte
     //
-    delayMicroseconds(SER_DELAY);  Serial.write(FRAME_START);
+    DELAY_USEC(SER_DELAY);  Serial.write(FRAME_START);
 
     byte frame_b;
     for (int i = 0; i < FILE_BLOCK_SIZE; ++i) 
@@ -695,12 +696,12 @@ void ArduinoIdleFunction()
         ++frame_b;
       }
 
-      delayMicroseconds(SER_DELAY);  Serial.write(frame_b);
+      DELAY_USEC(SER_DELAY);  Serial.write(frame_b);
     }
 
     // Wait for acknowledgement of frame.
     //
-    delayMicroseconds(SER_DELAY * 4);
+    DELAY_USEC(SER_DELAY * 4);
     for (int readVal = -1; readVal != FRAME_DONE; readVal = Serial.read())
     {
       // read() returns -1 if no data available
